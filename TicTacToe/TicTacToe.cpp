@@ -32,8 +32,6 @@ private:
 	//True = X False = O
 	bool Turn = false;
 
-	int c = 1;
-
 	enum TurnResult { Player1_Win, Player2_Win, No_Win };
 
 	enum Squares { Cross, Circle, Blank };
@@ -42,19 +40,115 @@ private:
 	game mode = game::MAIN;
 
 public:
-	int RowCheck(int i) {
+	int XLefColCheck(int XLefCol) {
+		if (SquareVec[0] == Squares::Cross) {
+			XLefCol++;
+		}
+		if (SquareVec[3] == Squares::Cross) {
+			XLefCol++;
+		}
+		if (SquareVec[6] == Squares::Cross) {
+			XLefCol++;
+		}
+		return XLefCol;
+	}
+	int XMidColCheck(int XMidCol) {
+		if (SquareVec[1] == Squares::Cross) {
+			XMidCol++;
+		}
+		if (SquareVec[4] == Squares::Cross) {
+			XMidCol++;
+		}
+		if (SquareVec[7] == Squares::Cross) {
+			XMidCol++;
+		}
+		return XMidCol;
+	}
+	int XRigColCheck(int XRigCol) {
+		if (SquareVec[2] == Squares::Cross) {
+			XRigCol++;
+		}
+		if (SquareVec[5] == Squares::Cross) {
+			XRigCol++;
+		}
+		if (SquareVec[8] == Squares::Cross) {
+			XRigCol++;
+		}
+		return XRigCol;
+	}
+	int XBotRowCheck(int XBotRow) {
+		if (SquareVec[6] == Squares::Circle) {
+			XBotRow++;
+		}
+		if (SquareVec[7] == Squares::Circle) {
+			XBotRow++;
+		}
+		if (SquareVec[8] == Squares::Circle) {
+			XBotRow++;
+		}
+		return XBotRow;
+	}
+	int XMidRowCheck(int XMidRow) {
+		if (SquareVec[3] == Squares::Circle) {
+			XMidRow++;
+		}
+		if (SquareVec[4] == Squares::Circle) {
+			XMidRow++;
+		}
+		if (SquareVec[5] == Squares::Circle) {
+			XMidRow++;
+		}
+		return XMidRow;
+	}
+	int XTopRowCheck(int XTopRow) {
 		if (SquareVec[0] == Squares::Circle) {
-			i++;
+			XTopRow++;
 		}
 		if (SquareVec[1] == Squares::Circle) {
-			i++;
+			XTopRow++;
 		}
 		if (SquareVec[2] == Squares::Circle) {
-			i++;
+			XTopRow++;
 		}
-		return i;
+		return XTopRow;
 	}
-	bool FuckMe(std::vector<int> Num, Squares CheckSquare) {
+	int OBotRowCheck(int OBotRow) {
+		if (SquareVec[6] == Squares::Circle) {
+			OBotRow++;
+		}
+		if (SquareVec[7] == Squares::Circle) {
+			OBotRow++;
+		}
+		if (SquareVec[8] == Squares::Circle) {
+			OBotRow++;
+		}
+		return OBotRow;
+	}
+	int OMidRowCheck(int OMidRow) {
+		if (SquareVec[3] == Squares::Circle) {
+			OMidRow++;
+		}
+		if (SquareVec[4] == Squares::Circle) {
+			OMidRow++;
+		}
+		if (SquareVec[5] == Squares::Circle) {
+			OMidRow++;
+		}
+		return OMidRow;
+	}
+	int OTopRowCheck(int OTopRow) {
+		if (SquareVec[0] == Squares::Circle) {
+			OTopRow++;
+		}
+		if (SquareVec[1] == Squares::Circle) {
+			OTopRow++;
+		}
+		if (SquareVec[2] == Squares::Circle) {
+			OTopRow++;
+		}
+		return OTopRow;
+	}
+	bool TestBoard(std::vector<int> Num, Squares CheckSquare) {
 		for (int i = 0; i < Num.size(); i++) {
 			if (SquareVec[Num[i]] == CheckSquare) {
 				return true;
@@ -62,23 +156,83 @@ public:
 		}
 		return false;
 	}
-	void Bot() {
-		int i = 0;
-		RowCheck(i);
-		if (Turn == true && c == 1) {
-			SquareVec[4] = Squares::Cross;
-			Turn = false;
-			c++;
-		}
-		if (i == 2) {
-			for (int fuck = 0; fuck < 2; fuck++) {
-				if (SquareVec[fuck] == Squares::Blank) {
-					SquareVec[fuck] = Squares::Cross;
-					Turn = false;
+	void Machine() {
+		//RowCheck
+		int OMidRow = 0;
+		int OTopRow = 0;
+		int OBotRow = 0;
+		int XMidRow = 0;
+		int XTopRow = 0;
+		int XBotRow = 0;
+		int XLefCol = 0;
+		int XMidCol = 0;
+		int XRigCol = 0;
+		OTopRow = OTopRowCheck(OTopRow);
+		OMidRow = OMidRowCheck(OMidRow);
+		OBotRow = OBotRowCheck(OBotRow);
+		XLefCol = XLefColCheck(XLefCol);
+		XMidCol = XMidColCheck(XMidCol);
+		XRigCol = XRigColCheck(XRigCol);
+		//Block top row win
+		//if (TestBoard({ 0,2,6,8 }, Squares::Blank) && Turn == true && SquareVec[8] == Squares::Blank) {
+			//SquareVec[8] = Squares::Cross;
+			//Turn = false;
+		//}
+		//if (TestBoard({ 0,2,6,8 }, Squares::Circle) && Turn == true && SquareVec[8] == Squares::Blank) {
+			//SquareVec[8] = Squares::Cross;
+			//Turn = false;
+		//}
+		//If player takes corner and 4 is free, take
+		if (TestBoard({ 0,2,6,8 }, Squares::Circle) && Turn == true) {
+			if (SquareVec[4] == Squares::Blank) {
+				SquareVec[4] = Squares::Cross;
+				Turn = false;
+			}
+			//If player has 2 in top row, block win
+			if (TestBoard({ 0,1,2 }, Squares::Blank) && OTopRow >= 2 && Turn == true) {
+				for (int i = 0; i <= 2; i++) {
+					if (SquareVec[i] == Squares::Blank) {
+						SquareVec[i] = Squares::Cross;
+						Turn = false;
+					}
+				}
+			}
+			//If player has 2 in bot row, block win
+			if (TestBoard({ 6,7,8 }, Squares::Blank) && OBotRow >= 2 && Turn == true) {
+				for (int i = 6; i <= 8; i++) {
+					if (SquareVec[i] == Squares::Blank) {
+						SquareVec[i] = Squares::Cross;
+						Turn = false;
+					}
+				}
+			}
+			//If bot has 2 in mid col and empty spot, win
+			if (TestBoard({ 1,4,7 }, Squares::Blank) && XMidCol >= 2 && Turn == true) {
+				for (int i = 0; i <= 2; i++) {
+					if (i == 0) {
+						int x = 1;
+						if (SquareVec[x] == Squares::Blank) {
+							SquareVec[x] = Squares::Cross;
+							Turn = false;
+						}
+					}
+					if (i == 1) {
+						int x = 4;
+						if (SquareVec[x] == Squares::Blank) {
+							SquareVec[x] = Squares::Cross;
+							Turn = false;
+						}
+					}
+					if (i == 2) {
+						int x = 7;
+						if (SquareVec[x] == Squares::Blank) {
+							SquareVec[x] = Squares::Cross;
+							Turn = false;
+						}
+					}
 				}
 			}
 		}
-
 	}
 	void MainMenu() {
 		Clear(olc::BLACK);
@@ -196,6 +350,7 @@ public:
 		return TurnResult::No_Win;
 	}
 	void PlayerVBot() {
+		Machine();
 		Clear(olc::BLACK);
 		DrawLine(10, 60, ScreenWidth() - 10, 60, olc::WHITE);
 		DrawLine(10, 120, ScreenWidth() - 10, 120, olc::WHITE);
@@ -253,8 +408,6 @@ public:
 			SquareVec[8] = Squares::Circle;
 			Turn = true;
 		}
-
-		Bot();
 
 		//Draw O
 		//Square One
