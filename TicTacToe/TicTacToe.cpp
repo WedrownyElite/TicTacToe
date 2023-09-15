@@ -239,28 +239,28 @@ public:
 		SquareVec = { Blank, Blank, Blank, Blank, Blank, Blank, Blank, Blank, Blank };
 		Turn = false;
 		if (menu == 0) {
-			DrawString(10, 30, ">> Player vs Player", olc::WHITE, 1);
-			DrawString(10, 50, "Player vs Machine (Hard)", olc::WHITE, 1);
-			DrawString(10, 70, "Player vs Machine (Random)", olc::WHITE, 1);
-			DrawString(50, 90, "Exit", olc::RED, 1);
+			DrawString(5, 30, ">> Player vs Player", olc::WHITE, 1);
+			DrawString(15, 50, "Player vs Bot", olc::WHITE, 1);
+			DrawString(15, 70, "Player vs Bad Bot", olc::WHITE, 1);
+			DrawString(55, 90, "Exit", olc::RED, 1);
 		}
 		else if (menu == 1) {
-			DrawString(10, 30, "Player vs Player", olc::WHITE, 1);
-			DrawString(10, 50, ">> Player vs Machine (Hard)", olc::WHITE, 1);
-			DrawString(10, 70, "Player vs Machine (Random)", olc::WHITE, 1);
-			DrawString(50, 90, "Exit", olc::RED, 1);
+			DrawString(15, 30, "Player vs Player", olc::WHITE, 1);
+			DrawString(5, 50, ">> Player vs Bot", olc::WHITE, 1);
+			DrawString(15, 70, "Player vs Bad Bot", olc::WHITE, 1);
+			DrawString(55, 90, "Exit", olc::RED, 1);
 		}
 		else if (menu == 2) {
-			DrawString(10, 30, "Player vs Player", olc::WHITE, 1);
-			DrawString(10, 50, "Player vs Machine (Hard)", olc::WHITE, 1);
-			DrawString(10, 70, ">> Player vs Machine (Random)", olc::WHITE, 1);
-			DrawString(50, 90, "Exit", olc::RED, 1);
+			DrawString(15, 30, "Player vs Player", olc::WHITE, 1);
+			DrawString(15, 50, "Player vs Bot", olc::WHITE, 1);
+			DrawString(5, 70, ">> Player vs Bad Bot", olc::WHITE, 1);
+			DrawString(55, 90, "Exit", olc::RED, 1);
 		}
 		else if (menu == 3) {
-			DrawString(10, 30, "Player vs Player", olc::WHITE, 1);
-			DrawString(10, 50, "Player vs Machine (Hard)", olc::WHITE, 1);
-			DrawString(10, 70, "Player vs Machine (Random)", olc::WHITE, 1);
-			DrawString(50, 90, ">> Exit", olc::RED, 1);
+			DrawString(15, 30, "Player vs Player", olc::WHITE, 1);
+			DrawString(15, 50, "Player vs Bot", olc::WHITE, 1);
+			DrawString(15, 70, "Player vs Bad Bot", olc::WHITE, 1);
+			DrawString(40, 90, ">> Exit", olc::RED, 1);
 		}
 		if (GetKey(olc::Key::DOWN).bPressed && menu < 3) {
 			menu++;
